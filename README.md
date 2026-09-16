@@ -2,7 +2,7 @@
 
 Mobile-first earthquake rehearsal for Mexican families. The product places a person inside a short 3D decision scenario, measures behavior, and adjusts the next round instead of serving another information page.
 
-- Live URL: pending first deployment
+- Live URL: https://w06-90-segundos-yonathan-builds.vercel.app
 - Week: 06 - When Experience Can Be Manufactured
 - Builder: Yonathan Zeitoune Mattout
 - Course: Negocios Inteligentes y Comercio Digital

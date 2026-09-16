@@ -13,6 +13,7 @@ let session = createSession();
 let timerId;
 let startedAt = 0;
 let remaining = session.seconds;
+let selectedProfile = 'familia';
 const room = createRoomScene($('#scene'));
 const voice = createVoiceControl({
   button: $('#voice-button'),
@@ -36,7 +37,8 @@ function renderScenario() {
   $('#scenario-prompt').textContent = scenario.prompt;
   $('#step-count').textContent = `DECISIÓN ${session.index + 1} DE ${scenarios.length}`;
   $('#adaptive-label').textContent = session.level === 1 ? 'NIVEL 1 · CON PISTAS' : session.level === 2 ? 'NIVEL 2 · MENOS TIEMPO' : 'NIVEL 3 · SIN PISTAS';
-  $('#scenario-cue').textContent = session.level >= 3 ? '' : scenario.cue;
+  const supportCue = selectedProfile === 'mayor' && session.index === 0 ? ' Antes del movimiento, acuerden quién apoyará a la persona mayor sin exponerse.' : '';
+  $('#scenario-cue').textContent = session.level >= 3 ? '' : `${scenario.cue}${supportCue}`;
   choices.replaceChildren(...scenario.choices.map(choice => {
     const button = document.createElement('button');
     button.className = 'choice-button';
@@ -56,6 +58,7 @@ function renderScenario() {
     $('#timer-value').textContent = formatTime(remaining);
     if (remaining <= 0) {
       clearInterval(timerId);
+      voice.stop();
       const outcome = expire(session);
       session = outcome.session;
       renderFeedback(outcome.result);
@@ -66,7 +69,7 @@ function renderScenario() {
 }
 
 function submitChoice(choiceId) {
-  if (!scenarios[session.index]) return;
+  if (simulation.hidden || !scenarios[session.index]) return;
   clearInterval(timerId);
   voice.stop();
   const elapsed = (Date.now() - startedAt) / 1000;
@@ -108,6 +111,7 @@ $('#about-button').addEventListener('click', event => {
   event.currentTarget.setAttribute('aria-expanded', String(!panel.hidden));
 });
 document.querySelectorAll('.profile-card').forEach(button => button.addEventListener('click', () => {
+  selectedProfile = button.dataset.profile;
   document.querySelectorAll('.profile-card').forEach(card => card.classList.toggle('is-selected', card === button));
 }));
 window.addEventListener('keydown', event => {

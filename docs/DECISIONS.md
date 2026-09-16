@@ -18,3 +18,11 @@ Tomorrow's first move: implement and test the pure decision engine before connec
 - Limited device pixel ratio to reduce GPU load on phones.
 
 Tomorrow's first move: run mechanical and mobile tests, record one defect, fix it, then redeploy.
+
+## 2026-09-16 - Test close
+
+- Mechanical pass found and fixed a voice/timer race that could record an invisible late answer.
+- Persona pass found that the household profile behaved like a decorative control. It now changes a concrete support cue.
+- Preserved the evidence boundary in the debrief: session behavior is not real-world readiness.
+
+Tomorrow's first move: capture the final demo, publish the source, and submit only after links and videos are verified.
