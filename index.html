@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07151f" />
+    <meta name="description" content="Rehearsal formativo de tres decisiones familiares ante un sismo." />
+    <title>90 Segundos · Simulación formativa</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#decision-panel">Saltar a las decisiones</a>
+    <main id="app">
+      <header class="topbar">
+        <div class="brand" aria-label="90 Segundos">
+          <span class="brand-number">90</span>
+          <span class="brand-word">SEGUNDOS</span>
+        </div>
+        <button class="utility-button" id="about-button" type="button" aria-controls="about-panel" aria-expanded="false">Límites</button>
+      </header>
+
+      <aside id="about-panel" class="boundary-panel" hidden>
+        <strong>Lo que esta prueba sí mide</strong>
+        <p>Tu decisión, el tiempo de respuesta y el cambio entre intentos dentro de esta simulación.</p>
+        <strong>Lo que no mide</strong>
+        <p>No predice un sismo, no certifica preparación y no reemplaza indicaciones oficiales.</p>
+      </aside>
+
+      <section id="intro" class="intro-panel" aria-labelledby="intro-title">
+        <p class="kicker">REHEARSAL 01 · FAMILIA</p>
+        <h1 id="intro-title">Tres decisiones antes de que importen.</h1>
+        <p class="intro-copy">Entra a un departamento simulado. Tendrás poco tiempo y solo tres opciones por escena. La siguiente ronda cambia según tus decisiones.</p>
+        <div class="profile-grid" role="group" aria-label="Perfil del hogar simulado">
+          <button class="profile-card is-selected" type="button" data-profile="familia">
+            <span>Departamento</span><small>2 adultos · 1 menor</small>
+          </button>
+          <button class="profile-card" type="button" data-profile="mayor">
+            <span>Movilidad limitada</span><small>Incluye apoyo a una persona mayor</small>
+          </button>
+        </div>
+        <button id="start-button" class="primary-button" type="button">Comenzar simulación</button>
+        <p class="privacy-note">No pide nombre, ubicación ni cuenta. La sesión se borra al cerrar.</p>
+      </section>
+
+      <section id="simulation" class="simulation" hidden aria-live="polite">
+        <div class="scenario-meta">
+          <div>
+            <p id="scenario-eyebrow" class="kicker">ESCENARIO 1 · EN CASA</p>
+            <p id="adaptive-label" class="adaptive-label">NIVEL 1 · CON PISTAS</p>
+          </div>
+          <div class="timer" aria-label="Tiempo restante"><span id="timer-value">00:45</span></div>
+        </div>
+
+        <div class="scene-shell" aria-label="Escena tridimensional de un departamento">
+          <canvas id="scene"></canvas>
+          <div class="shake-meter" aria-hidden="true"><span></span></div>
+          <div class="scene-label">3D EN TIEMPO REAL · NO ES UNA ALERTA</div>
+        </div>
+
+        <section id="decision-panel" class="decision-panel" tabindex="-1">
+          <p class="step-count" id="step-count">DECISIÓN 1 DE 3</p>
+          <h2 id="scenario-prompt">¿Qué haces primero?</h2>
+          <p id="scenario-cue" class="cue"></p>
+          <div id="choices" class="choices"></div>
+          <div class="input-row">
+            <button id="voice-button" class="voice-button" type="button" aria-describedby="voice-status">Usar voz</button>
+            <span id="voice-status">Opcional · di A, B o C</span>
+          </div>
+        </section>
+      </section>
+
+      <section id="feedback" class="feedback-panel" hidden aria-live="assertive">
+        <p id="feedback-status" class="kicker"></p>
+        <h2 id="feedback-title"></h2>
+        <p id="feedback-copy"></p>
+        <div class="adaptation-card">
+          <span>La siguiente ronda</span>
+          <strong id="adaptation-copy"></strong>
+        </div>
+        <button id="next-button" class="primary-button" type="button">Siguiente escenario</button>
+      </section>
+
+      <section id="results" class="results-panel" hidden aria-labelledby="results-title">
+        <p class="kicker">DEBRIEF · EVIDENCIA LIMITADA</p>
+        <h2 id="results-title">Tu ensayo terminó.</h2>
+        <div class="score-ring"><strong id="score-value">0/3</strong><span>decisiones seguras</span></div>
+        <div id="result-list" class="result-list"></div>
+        <p class="result-boundary">Este resultado describe únicamente esta sesión. No es una calificación de tu familia ni una predicción de lo que harás en una emergencia real.</p>
+        <button id="restart-button" class="primary-button" type="button">Ensayar otra vez</button>
+      </section>
+
+      <footer>SIMULACIÓN FORMATIVA · SIGUE SIEMPRE LAS INDICACIONES DE PROTECCIÓN CIVIL</footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
