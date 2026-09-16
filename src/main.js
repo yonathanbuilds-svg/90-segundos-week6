@@ -1,5 +1,7 @@
 import './style.css';
 import { answer, createSession, expire, scenarios } from './engine.js';
+import { createRoomScene } from './scene.js';
+import { createVoiceControl } from './voice.js';
 
 const $ = selector => document.querySelector(selector);
 const intro = $('#intro');
@@ -11,6 +13,12 @@ let session = createSession();
 let timerId;
 let startedAt = 0;
 let remaining = session.seconds;
+const room = createRoomScene($('#scene'));
+const voice = createVoiceControl({
+  button: $('#voice-button'),
+  status: $('#voice-status'),
+  onChoice: choice => submitChoice(choice)
+});
 
 function setOnly(active) {
   [intro, simulation, feedback, results].forEach(panel => { panel.hidden = panel !== active; });
@@ -39,6 +47,7 @@ function renderScenario() {
     return button;
   }));
   remaining = session.seconds;
+  room.setIntensity(session.index === 0 ? 1.25 : session.index === 1 ? .35 : .12);
   $('#timer-value').textContent = formatTime(remaining);
   startedAt = Date.now();
   clearInterval(timerId);
@@ -59,6 +68,7 @@ function renderScenario() {
 function submitChoice(choiceId) {
   if (!scenarios[session.index]) return;
   clearInterval(timerId);
+  voice.stop();
   const elapsed = (Date.now() - startedAt) / 1000;
   const outcome = answer(session, choiceId, elapsed);
   if (!outcome.result) return;
@@ -103,3 +113,4 @@ document.querySelectorAll('.profile-card').forEach(button => button.addEventList
 window.addEventListener('keydown', event => {
   if (!simulation.hidden && ['a', 'b', 'c'].includes(event.key.toLowerCase())) submitChoice(event.key.toUpperCase());
 });
+window.addEventListener('beforeunload', () => room.destroy());

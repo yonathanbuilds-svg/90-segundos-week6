@@ -9,3 +9,12 @@
 - Limited the experience to three scenarios to honor the possibility-inflation lesson.
 
 Tomorrow's first move: implement and test the pure decision engine before connecting it to the interface.
+
+## 2026-09-16 - First build close
+
+- Implemented the adaptive engine as pure functions so its behavior can be tested without the interface.
+- Built an inline real-time Three.js room rather than a prerecorded video; the label makes clear that it is a simulation, not an alert.
+- Added Spanish browser voice only as an optional input. Unsupported browsers receive a visible fallback and touch/keyboard always remain available.
+- Limited device pixel ratio to reduce GPU load on phones.
+
+Tomorrow's first move: run mechanical and mobile tests, record one defect, fix it, then redeploy.
